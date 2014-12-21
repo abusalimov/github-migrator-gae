@@ -22,6 +22,7 @@ from authomatic import provider_id
 from authomatic.adapters import Webapp2Adapter
 from authomatic.providers import oauth2, BaseProvider
 from authomatic.exceptions import BaseError
+from authomatic.exceptions import HTTPError
 
 import authomatic.core
 import authomatic.providers
@@ -253,11 +254,21 @@ class LoginHandler(FormattedResultHandler):
         self.respond(self.state_dict(error=result.error), result_format)
 
     def fetch_user_info(self, result):
-        result.user.update()
+        response = result.user.update()
+        response._data = result.user.data  # XXX
+        self.ensure_response_http_ok(response)
+
         if result.provider.name == 'github':
             emails_url = oauth2.GitHub.user_info_url + '/emails'
             response = auth.access(result.user.credentials, emails_url)
+            self.ensure_response_http_ok(response)
             result.user.github_emails = response.data or []
+
+    def ensure_response_http_ok(self, response):
+        if response.status >= 400:
+            raise HTTPError(response.data
+                            .get('error', {})
+                            .get('message', response.data))
 
     def login_successful(self, result):
         if result.provider.name == 'github':

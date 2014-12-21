@@ -274,7 +274,7 @@ class LoginHandler(FormattedResultHandler):
             self.put_user(user)
 
         elif result.provider.name == 'google':
-            if self.user:
+            if result.user.email and self.user:
                 self.add_user_email(self.user, result.user.email.lower())
                 self.user.put()
 

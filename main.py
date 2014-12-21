@@ -60,7 +60,7 @@ def _monkey_patch_init_to_prompt_account(goog):
 _monkey_patch_init_to_prompt_account(oauth2.Google)
 
 
-DEFAULT_PROJECT_NAME = 'embox'
+DEFAULT_PROJECT_NAME = 'project'
 USER_PROPS           = ['info', 'emails']
 USER_INFO_PROPS      = ['id', 'username', 'name', 'link', 'picture']
 

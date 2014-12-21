@@ -274,10 +274,9 @@ class LoginHandler(FormattedResultHandler):
             self.put_user(user)
 
         elif result.provider.name == 'google':
-            user = self.user
-            if user:
-                self.add_user_email(user, result.user.email.lower())
-                user.put()
+            if self.user:
+                self.add_user_email(self.user, result.user.email.lower())
+                self.user.put()
 
 class LogoutHandler(FormattedResultHandler):
     def handle(self):
@@ -286,12 +285,11 @@ class LogoutHandler(FormattedResultHandler):
 
 class RemoveEmailHandler(FormattedResultHandler):
     def handle(self):
-        user = self.user
-        if user:
+        if self.user:
             email = self.request.get('email').lower()
-            if email in user.emails:
-                user.emails.remove(email)
-                user.put()
+            if email in self.user.emails:
+                self.user.emails.remove(email)
+                self.user.put()
 
         return self.state_dict()
 

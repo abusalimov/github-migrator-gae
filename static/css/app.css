@@ -1,0 +1,116 @@
+html, body {
+  height: 100%;
+}
+
+#root {
+  clear: both;
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin-bottom: -4rem;
+}
+#header {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+#root #root_footer {
+  height: 4rem;
+}
+#footer {
+  clear: both;
+  position: relative;
+  height: 4rem;
+}
+
+.spinner-root {
+  position: relative;
+}
+.spinner {
+  display:    none;
+  position:   absolute;
+  z-index:    1000;
+  top:        0;
+  left:       0;
+  height:     100%;
+  width:      100%;
+  background: rgba( 255, 255, 255, .8 )
+              url('/img/ajax-loader.gif')
+              50% 50%
+              no-repeat;
+}
+
+.hidden {
+  display: none;
+}
+
+.row {
+  position: relative;
+}
+
+@media only screen and (min-width: 40.063em) {
+  .fixed-width {
+    position: absolute;
+    right: 0;
+    width: 15em;
+  }
+  .fixed-width-right {
+    padding-right: 16em;
+  }
+}
+
+#user #user-picture {
+  border-radius: 6px;
+  width: 13.125em;
+  height: 13.125em;
+}
+
+#user #user-emails tr td {
+  font-size: 125%;
+  white-space: nowrap;
+}
+
+#user #user-emails tr td img {
+  float: left;
+  height: 1.125rem;
+  vertical-align: middle;
+}
+#user #user-emails tr td pre {
+  float: left;
+  margin-left: 0.5rem;
+}
+
+.user-email-remove { color: #c60f13; }
+
+a { color: #2ba6cb; }
+a:hover, a:focus { color: #258faf; }
+
+span.secondary { color: #6f6f6f; }
+small { font-size: 80%; color: #6f6f6f; }
+
+button, .button {
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+.button img  { float: left; }
+.button span {
+  float: left;
+  margin-left: 0.5rem;
+  display: block;
+}
+
+button       img, .button       img { height: 1rem; }
+button.large img, .button.large img { height: 1.25rem; }
+button.small img, .button.small img { height: 0.8125rem; }
+button.tiny  img, .button.tiny  img { height: 0.6875rem; }
+
+h1 img { height: 2.125rem; }
+h2 img { height: 1.6875rem; }
+h3 img { height: 1.375rem; }
+h4 img { height: 1.125rem; }
+h5 img { height: 1.125rem; }
+h6 img { height: 1rem; }
+
+img.logo { height: 3.25rem; }
+
+.alert-box { transition: all 1ms ease;}

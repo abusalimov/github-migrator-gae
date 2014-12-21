@@ -1,0 +1,190 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<title>{{config.PROJECT['name']}} migrator</title>
+
+	<link rel="shortcut icon" href="/img/favicon.ico" />
+
+	<link rel="stylesheet" href="/css/foundation.css" />
+	<link rel="stylesheet" href="/css/app.css" />
+
+	<script type="text/javascript" src="/js/jquery.js"></script>
+	<script type="text/javascript" src="/js/jsrender.js"></script>
+	<script type="text/javascript" src="/js/foundation.js"></script>
+	<script type="text/javascript" src="/js/modernizr.js"></script>
+	<script type="text/javascript" src="/js/authomatic.js"></script>
+	<script type="text/javascript" src="/js/app.js"></script>
+
+	<script type="text/javascript" src="/app/state.js"></script>
+</head>
+<body>
+{% raw %}
+	<script id="user-email-template" type="text/x-jsrender">
+		<tr>
+			<td>
+				<img src="/img/icons/mail-icon.png" />
+				<pre>{{:email}}</pre>
+			</td>
+			<td class="spinner-root">
+				<a href="/app/remove.json?email={{:emailUrl}}" class="ajax user-email-remove">
+					&times;
+				</a>
+				<div class="spinner"></div>
+			</td>
+		</tr>
+	</script>
+{% endraw %}
+
+	<div id="root">
+		<div id="header" class="row">
+			<div class="large-12 columns">
+				<h1>
+					<img class="logo" src="/img/logo.png" />
+					{{config.PROJECT['name']}} migrator
+				</h1>
+
+				<!-- <hr /> -->
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="large-12 columns">
+				<div class="panel">
+					<h3>{{config.PROJECT['name']}} is moving from Google Code to GitHub!</h3>
+{% if 'org_account' in config.PROJECT %}
+					<p>The new home is
+					<a href="https://github.com/{{config.PROJECT['org_account']}}">
+						github.com/{{config.PROJECT['org_account']}}</a>.</p>
+{% endif %}
+					<p>We ask you for a permission so that we could also migrate
+					your Issue Tracker issues and comments.<br />
+					<small>It is OK to opt out.
+					Orphan messages will be owned by a
+{% if 'bot_account' in config.PROJECT %}
+					<a href="https://github.com/{{config.PROJECT['bot_account']}}">
+						bot account</a>
+{% else %}
+					bot account
+{% endif %}
+					and attributed to you through a note in a message text.</small></p>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="large-12 columns">
+				<div id="error" class="hidden alert-box alert radius">
+					Error: <span id="error-message"></span>
+					<a class="close">&times;</a>
+				</div>
+			</div>
+		</div>
+
+		<div id="auth" class="hidden">
+			<div class="row">
+				<div class="small-12 columns">
+					<h2>Authorization</h2>
+					<p>Please, sign in with your GitHub account
+					and authorize the migrator application.</p>
+					<a class="authomatic radius button" href="/app/login/github">
+						<img src="/img/icons/github-light.png" />
+						<span>Sign in with GitHub</span>
+					</a>
+					<p>The migrator application requests the following permissions.</p>
+					<table width="100%">
+						<thead>
+							<tr>
+								<td>Scope</td>
+								<td>Reason</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><pre>user:email</pre></td>
+								<td>To list email addresses
+									<a href="https://github.com/settings/emails">attached</a>
+									to your account and associate them automatically<br />
+									(only <em>verified</em> addresses are added).</td>
+							</tr>
+							<tr>
+								<td><pre>public_repo</pre></td>
+								<td>To be able to re-create your issues and comments on behalf of you.</td>
+							</tr>
+						</tbody>
+					</table>
+					<p><strong>Don't revoke access until the transition is finished!</strong><br />
+					Once it's done we'll revoke all user access tokens and delete them forever.<br />
+					However, you may <a href="https://github.com/settings/applications#app-{{config.GITHUB_AUTH['client_id']}}">do it yourself</a>,
+					just to be sure.</p>
+				</div>
+			</div>
+		</div>
+
+		<div id="user" class="hidden">
+			<div class="row">
+				<div class="small-12 columns fixed-width-right">
+					<h2 id="user-name"></h2>
+					<p>In order to associate all your contributions with the GitHub account
+						we need to know email addresses you used to
+						log in to Google Code with.</p>
+					<table class="user-has-emails">
+						<tbody id="user-emails"></tbody>
+					</table>
+					<div class="user-has-emails">
+						<p>To add another one, please, sign in using your Google account.</p>
+					</div>
+					<div class="user-has-no-emails">
+						<p>Please, add an email by signing in using your Google account.</p>
+					</div>
+					<a class="authomatic radius button" href="/app/login/google">
+						<img src="/img/icons/google-plus.png" />
+						<span>Sign in with Google</span>
+					</a>
+					<p><strong>We don't store your Google access token.</strong><br />
+						It is only used once to retrieve your email address.<br />
+						As always, you may <a href="https://security.google.com/settings/security/permissions">revoke access</a> manually.</p>
+				</div>
+				<div id="user-picture-column" class="small-12 columns fixed-width medium-text-right">
+					<img id="user-picture" class="hide-for-small-only"/>
+					<h3>
+						<img src="/img/icons/github-dark.png" />
+						<span id="user-login"></span>
+					</h3>
+					<a target="_blank" id="user-link">Your GitHub profile</a><br />
+					<a target="_blank" href="https://github.com/settings/applications#app-{{config.GITHUB_AUTH['client_id']}}">Authorized apps</a><br />
+					<a href="/app/logout.json" class="ajax">Sign out</a><br />
+				</div>
+			</div>
+		</div>
+<!--
+		<div class="row">
+			<div class="small-9 columns">
+				<pre id="debug"></pre>
+			</div>
+		</div>
+ -->
+		<div id="root_footer">
+		</div>
+	</div>
+
+	<div id="footer">
+		<div class="row">
+			<div class="small-12 columns text-right">
+				<!-- <hr /> -->
+
+				<small>
+					Developed by <a href="https://github.com/abusalimov">Eldar Abusalimov</a><br />
+					The source code is available <a href="https://github.com/abusalimov/github-migrator-gae">on GitHub</a>
+				</small>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		$(document).foundation();
+	</script>
+</body>
+</html>

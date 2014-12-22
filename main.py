@@ -100,7 +100,7 @@ class BaseHandler(webapp2.RequestHandler):
     @webapp2.cached_property
     def session(self):
         # Returns a session using the default cookie key.
-        return self.session_store.get_session(backend='memcache')
+        return self.session_store.get_session(backend='securecookie')
 
     def dispatch(self):
         # Get a session store for this request.
@@ -360,8 +360,6 @@ app = webapp2.WSGIApplication([
         'webapp2_extras.sessions': {
             'secret_key': config.SECRET,
             'backends': {
-                'datastore':    'webapp2_extras.appengine.sessions_ndb.DatastoreSessionFactory',
-                'memcache':     'webapp2_extras.appengine.sessions_memcache.MemcacheSessionFactory',
                 'securecookie': 'webapp2_extras.sessions.SecureCookieSessionFactory',
             }
         },

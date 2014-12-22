@@ -39,6 +39,7 @@ $(document).ready(function (e) {
 	var $userLink          = $('#user-link');
 	var $userPicture       = $('#user-picture');
 	var $userEmails        = $('#user-emails');
+	var $userAddEmail      = $('#user-sign-in-google')
 	var $userHasEmails     = $('.user-has-emails')
 	var $userHasNoEmails   = $('.user-has-no-emails')
 	var $userHasManyEmails = $('.user-has-many-emails');
@@ -81,6 +82,7 @@ $(document).ready(function (e) {
 			initAjaxHrefs('#user-emails a.ajax', realHandleState,
 				'#user-emails .spinner');
 
+			$userAddEmail.toggleClass('secondary', emails.length != 0);
 			$userHasEmails.toggle(emails.length != 0);
 			$userHasNoEmails.toggle(emails.length == 0);
 			$userHasManyEmails.toggle(emails.length > 1);

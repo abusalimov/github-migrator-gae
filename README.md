@@ -1,4 +1,4 @@
-Helper for migrating projects to GitHub
+Migrating issues and comments to GitHub
 =======================================
 
 This is a GAE app for collecting user access tokens and emails needed to import
@@ -46,8 +46,10 @@ some URIs:
 Press _Create client ID_ and you will get the ID and secret that you need
 to paste into `GOOGLE_AUTH` dict inside your `config.py`.
 
+After that, go to _APIs_, find _Google+ API_ and enable it.
+
 ### GitHub organization application
-First of all, [create](https://github.com/organizations/new) new organization,
+First, [create](https://github.com/organizations/new) new organization,
 if you haven't done it yet. Open your organization settings (you can find them
 through your [settings](https://github.com/settings/profile) screen),
 go to _Applications_ and _Register new application_. Fill in all necessary fields,
@@ -87,5 +89,9 @@ access code available at https://my-project-github-migrator.appspot.com/app/admi
 When logged in with admin privileges you're able to list all the registered
 users through https://my-project-github-migrator.appspot.com/app/users.json
 
-That's it!
+Live demo
+---------
+The application was developed to migrate [Embox](https://github.com/embox).
+Here is how it looks like:
+[https://embox-github-migrator.appspot.com/](https://embox-github-migrator.appspot.com/)
 

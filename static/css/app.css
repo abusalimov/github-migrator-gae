@@ -65,18 +65,27 @@ html, body {
 }
 
 #user #user-emails tr td {
+  text-align: center;
   font-size: 125%;
   white-space: nowrap;
+  min-width: 2.5rem;
+  width: 2.5rem;
+}
+
+#user #user-emails tr td.email-column {
+  text-align: left;
+  padding-left: 0rem;
+  padding-right: 0.125rem;
+}
+
+#user #user-emails tr td.email-icon-column {
+  min-width: 2.125rem;
+  width: 2.125rem;
+  padding-right: 0.25rem;
 }
 
 #user #user-emails tr td img {
-  float: left;
-  height: 1.125rem;
   vertical-align: middle;
-}
-#user #user-emails tr td pre {
-  float: left;
-  margin-left: 0.5rem;
 }
 
 .user-email-remove { color: #c60f13; }

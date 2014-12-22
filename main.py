@@ -319,6 +319,16 @@ class UsersHandler(FormattedResultHandler):
 
         return [user.to_dict(include=USER_PROPS+['token']) for user in users]
 
+class EmailsHandler(FormattedResultHandler):
+    def handle(self):
+        self.ensure_admin()
+
+        users_query = User.query(ancestor=project_key()).order(-User.date)
+        users = users_query.fetch()
+
+        return {email: user.info['username'] for user in users
+                for email in user.emails}
+
 class ResetHandler(FormattedResultHandler):
     def handle(self):
         self.ensure_admin()
@@ -343,6 +353,7 @@ app = webapp2.WSGIApplication([
         webapp2.Route(r'/app/remove<result_format:(\.(json|js))?>', RemoveEmailHandler),
         webapp2.Route(r'/app/admin<result_format:(\.(json|js))?>', AdminCodeHandler),
         webapp2.Route(r'/app/users<result_format:(\.(json|js))?>', UsersHandler),
+        webapp2.Route(r'/app/emails<result_format:(\.(json|js))?>', EmailsHandler),
         webapp2.Route(r'/app/reset<result_format:(\.(json|js))?>', ResetHandler),
     ],
     config={

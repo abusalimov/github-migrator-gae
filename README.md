@@ -73,4 +73,19 @@ $ gcloud components update gae-python
 $ appcfg.py --oauth2 -A my-project-github-migrator update github-migrator-gae
 ```
 
-The application will be available at https://**my-project-github-migrator**.appspot.com
+The application will be available at https://my-project-github-migrator.appspot.com
+
+Usage
+-----
+Give the URL to your developers, and ask them to authorize the application on GitHub
+and add their emails necessary to map old issue authors to proper GitHub accounts.
+
+Admin access is granted for users logged in with an `ADMIN_EMAIL`.
+The admin can also give the access to another user by telling him a special
+access code available at https://my-project-github-migrator.appspot.com/app/admin.json
+
+When logged in with admin privileges you're able to list all the registered
+users through https://my-project-github-migrator.appspot.com/app/users.json
+
+That's it!
+

@@ -61,6 +61,10 @@
 					<a href="https://github.com/{{config.PROJECT['org_account']}}">
 						github.com/{{config.PROJECT['org_account']}}</a>.</p>
 {% endif %}
+{% if 'about_link' in config.PROJECT %}
+					<p><a href="{{config.PROJECT['about_link']}}">
+						Read more</a> about the migration.</p>
+{% endif %}
 					<p>We ask you for a permission so that we could also migrate
 					your Issue Tracker issues and comments.<br />
 					<small>It is OK to opt out.

@@ -332,16 +332,16 @@ class EmailsHandler(FormattedResultHandler):
         return {email: user.info['username'] for user in users
                 for email in user.emails}
 
-class ResetHandler(FormattedResultHandler):
-    def handle(self):
-        self.ensure_admin()
+class ResetHandler(BaseHandler):
+    def post(self):
+        self.ensure_admin(force_code=True)
 
         users_query = User.query_all()
         for user in users_query.fetch():
             user.key.delete()
 
         self.session.clear()
-        return self.state_dict()
+        self.redirect('/')
 
 
 # Instantiate the webapp2 WSGI application.

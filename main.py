@@ -163,12 +163,15 @@ class BaseHandler(webapp2.RequestHandler):
         return sha.hexdigest()
 
     @webapp2.cached_property
-    def has_admin_rights(self):
-        return (self.user == self.admin_user or
-                self.request.get('code') == self.admin_code)
+    def is_admin_user(self):
+        return (self.user == self.admin_user)
 
-    def ensure_admin(self):
-        if not self.has_admin_rights:
+    @webapp2.cached_property
+    def is_admin_code(self):
+        return (self.request.get('code') == self.admin_code)
+
+    def ensure_admin(self, force_code=False):
+        if not self.is_admin_code and (force_code or not self.is_admin_user):
             self.abort(403)
 
 

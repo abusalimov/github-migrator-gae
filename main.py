@@ -281,7 +281,8 @@ class LoginHandler(FormattedResultHandler):
                          for prop in USER_INFO_PROPS}
 
             for entry in result.user.github_emails:
-                if entry['verified']:
+                if (entry['verified'] and
+                    not entry['email'].endswith('@users.noreply.github.com')):
                     self.add_user_email(user, entry['email'])
 
             user.put()

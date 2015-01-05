@@ -98,7 +98,7 @@
 		<div id="auth" class="hidden">
 			<div class="row">
 				<div class="small-12 columns">
-					<h2>Authorization</h2>
+					<h2>Step 1 of 2: authorize the app</h2>
 					<p>Please, sign in with your GitHub account
 					and authorize the migrator application.</p>
 					<a class="authomatic radius button" href="/app/login/github">
@@ -138,10 +138,11 @@
 		<div id="user" class="hidden">
 			<div class="row">
 				<div class="small-12 columns fixed-width-right">
-					<h2 id="user-name"></h2>
+					<h2>Step 2 of 2: add your emails</h2>
 					<p>In order to associate all your contributions with the GitHub account
 						we need to know email addresses you used to
 						log in to Google Code with.</p>
+					<h3 id="user-name"></h3>
 					<table class="user-has-emails">
 						<tbody id="user-emails"></tbody>
 					</table>
@@ -161,10 +162,10 @@
 				</div>
 				<div id="user-picture-column" class="small-12 columns fixed-width medium-text-right">
 					<img id="user-picture" class="hide-for-small-only"/>
-					<h3>
+					<h4>
 						<img src="/img/icons/github-dark.png" />
 						<span id="user-login"></span>
-					</h3>
+					</h4>
 					<a target="_blank" id="user-link">Your GitHub profile</a><br />
 					<a target="_blank" href="https://github.com/settings/applications#app-{{config.GITHUB_AUTH['client_id']}}">Authorized apps</a><br />
 					<a href="/app/logout.json" class="ajax">Sign out</a><br />

@@ -1,10 +1,14 @@
+{% set project_name = config.PROJECT.get('name', '') %}
+{% set org_account  = config.PROJECT.get('org_account', '') %}
+{% set bot_account  = config.PROJECT.get('bot_account', '') %}
+{% set about_link   = config.PROJECT.get('about_link', '') %}
 <!doctype html>
 <html class="no-js" lang="en">
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<title>{{config.PROJECT['name']}} migrator</title>
+	<title>{{project_name}} migrator</title>
 
 	<link rel="shortcut icon" href="/img/favicon.ico" />
 
@@ -45,7 +49,7 @@
 			<div class="large-12 columns">
 				<h1>
 					<img class="logo" src="/img/logo.png" />
-					{{config.PROJECT['name']}} migrator
+					{{project_name}} migrator
 				</h1>
 
 				<!-- <hr /> -->
@@ -55,22 +59,24 @@
 		<div class="row">
 			<div class="large-12 columns">
 				<div class="panel">
-					<h3>{{config.PROJECT['name']}} is moving from Google Code to GitHub!</h3>
-{% if 'org_account' in config.PROJECT %}
-					<p>The new home is
-					<a href="https://github.com/{{config.PROJECT['org_account']}}">
-						github.com/{{config.PROJECT['org_account']}}</a>.</p>
+					<h3>{{project_name}} is moving from Google Code to GitHub!</h3>
+					{{(org_account or about_link) and '<p>'}}
+{% if org_account %}
+					The new home is
+					<a href="https://github.com/{{org_account}}">
+						github.com/{{org_account}}</a>.
 {% endif %}
-{% if 'about_link' in config.PROJECT %}
-					<p><a href="{{config.PROJECT['about_link']}}">
-						Read more</a> about the migration.</p>
+{% if about_link %}
+					Read <a href="{{about_link}}">more</a>
+					about the migration plan.
 {% endif %}
+					{{(org_account or about_link) and '</p>'}}
 					<p>We ask you for a permission so that we could also migrate
 					your Issue Tracker issues and comments.<br />
 					<small>It is OK to opt out.
 					Orphan messages will be owned by a
-{% if 'bot_account' in config.PROJECT %}
-					<a href="https://github.com/{{config.PROJECT['bot_account']}}">
+{% if bot_account %}
+					<a href="https://github.com/{{bot_account}}">
 						bot account</a>
 {% else %}
 					bot account

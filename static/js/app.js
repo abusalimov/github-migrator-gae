@@ -2,24 +2,21 @@ function handleState(state) {
 	window.initialState = state;
 }
 
-function initAjaxHrefs(selector, handler, wait_selector) {
+function initAjaxHrefs(selector, handler) {
 	$(selector).click(function(e) {
 		e.preventDefault();
 		var $link = $(this)
+		var $spinner = $(this).closest('.spinner-root').find('.spinner')
 		return $.ajax({
 			dataType: "json",
 			url: $link.attr('href'),
 			beforeSend: function() {
-				if (wait_selector !== undefined) {
-					$link.css('visibility', 'hidden');
-					$(wait_selector).show();
-				}
+				$link.css('visibility', 'hidden');
+				$spinner.show();
 			},
 			complete: function() {
-				if (wait_selector !== undefined) {
-					$link.css('visibility', 'visible');
-					$(wait_selector).hide();
-				}
+				$link.css('visibility', 'visible');
+				$spinner.hide();
 			},
 			success: handler,
 		});
@@ -79,8 +76,7 @@ $(document).ready(function (e) {
 			});
 
 			$userEmails.html($userEmailTemplate.render(emails));
-			initAjaxHrefs('#user-emails a.ajax', realHandleState,
-				'#user-emails .spinner');
+			initAjaxHrefs('#user-emails a.ajax', realHandleState);
 
 			$userAddEmail.toggleClass('secondary', emails.length != 0);
 			$userHasEmails.toggle(emails.length != 0);

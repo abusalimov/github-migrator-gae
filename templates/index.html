@@ -138,20 +138,28 @@
 		<div id="user" class="hidden">
 			<div class="row">
 				<div class="small-12 columns fixed-width-right">
-					<h2>Step 2 of 2: add your emails</h2>
-					<p>In order to associate all your contributions with the GitHub account
-						we need to know email addresses you used to
-						log in to Google Code with.</p>
-					<h3 id="user-name"></h3>
-					<table class="user-has-emails">
-						<tbody id="user-emails"></tbody>
-					</table>
-					<div class="user-has-emails">
-						<p>To add another one, please, sign in using your Google account.</p>
+					<div class="user-has-no-emails">
+						<h2>Step 2 of 2: add your emails</h2>
+						<p>In order to associate all your contributions with the GitHub account
+							we need to know email addresses you used to
+							log in to Google Code with.</p>
 					</div>
+					<div class="user-has-emails">
+						<h2><s class="subheader">Step 2 of 2:</s> Everything's fine!</h2>
+						<p>Well done! Thank you, now we've got all we need.</p>
+					</div>
+
+					<h3 id="user-name"></h3>
 					<div class="user-has-no-emails">
 						<p>Please, add an email by signing in using your Google account.</p>
 					</div>
+					<div class="user-has-emails">
+						<table>
+							<tbody id="user-emails"></tbody>
+						</table>
+						<p>To add another one, please, sign in using your Google account.</p>
+					</div>
+
 					<a id="user-sign-in-google" class="authomatic radius button secondary" href="/app/login/google">
 						<img src="/img/icons/google-plus.png" />
 						<span>Sign in with Google</span>

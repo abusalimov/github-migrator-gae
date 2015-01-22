@@ -170,8 +170,9 @@ class BaseHandler(webapp2.RequestHandler):
     def is_admin_code(self):
         return (self.request.get('code') == self.admin_code)
 
-    def ensure_admin(self, force_code=False):
-        if not self.is_admin_code and (force_code or not self.is_admin_user):
+    def ensure_admin(self, strict_check=False):
+        if not (all if strict_check else any)((self.is_admin_user,
+                                               self.is_admin_code)):
             self.abort(403)
 
 
@@ -335,7 +336,7 @@ class EmailsHandler(FormattedResultHandler):
 
 class ResetHandler(BaseHandler):
     def post(self):
-        self.ensure_admin(force_code=True)
+        self.ensure_admin(strict_check=True)
 
         users_query = User.query_all()
         for user in users_query.fetch():

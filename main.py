@@ -322,7 +322,7 @@ class UsersHandler(FormattedResultHandler):
         users_query = User.query(ancestor=project_key()).order(-User.date)
         users = users_query.fetch()
 
-        return [user.to_dict(include=USER_PROPS+['token']) for user in users]
+        return [user.to_dict(include=USER_PROPS) for user in users]
 
 class EmailsHandler(FormattedResultHandler):
     def handle(self):

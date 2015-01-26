@@ -42,13 +42,17 @@ $(document).ready(function (e) {
 	var $userHasManyEmails = $('.user-has-many-emails');
 	var $userEmailTemplate = $.templates('#user-email-template');
 
+	var $notInitial        = $('.not-initial')
+
 	function hideError(e) {
 		$error.slideUp('fast');
 	}
 	$('#error .close, a.authomatic, a.ajax').click(hideError);
 
-	function realHandleState(state) {
+	function realHandleState(state, isInitial) {
 		$debug.html(JSON.stringify(state, undefined, 4));
+
+		$notInitial.toggle(!isInitial);
 
 		user = state.user;
 
@@ -97,6 +101,6 @@ $(document).ready(function (e) {
 	initAjaxHrefs('a.ajax', realHandleState);
 
 	if (typeof initialState !== 'undefined') {
-		realHandleState(initialState);
+		realHandleState(initialState, true);
 	}
 });
